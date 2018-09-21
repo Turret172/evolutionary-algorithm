@@ -124,34 +124,33 @@ organisms = generateOrganisms(population, dna_length)
 generation = 0
 
 #####main simulation
-try:
-    while True:
-        #increments the generation counter
-        generation += 1
+while True:
+    #increments the generation counter
+    generation += 1
 
-        #evaluates and sorts organists
-        organisms, best, ran, worst, orgs_with_sc = evaluateOrganisms(organisms, eval_func, dna_target)
-        score_list = [tpl[1] for tpl in orgs_with_sc]
+    #evaluates and sorts organists
+    organisms, best, ran, worst, orgs_with_sc = evaluateOrganisms(organisms, eval_func, dna_target)
+    score_list = [tpl[1] for tpl in orgs_with_sc]
 
-        #prints the status of the simulation to the console
-        print(f"Generation {generation}\n")
-        print(f"Target DNA:         {dna_target}")
-        print(f"Best organism DNA:  {best[0]}")
-        print(f"Random organism DNA:{ran[0]}")
-        print(f"Worst organism DNA: {ran[0]}")
-        print(f"Best, random, and worst scores: {best[1]}/{dna_length}, {ran[1]}/{dna_length}, {worst[1]}/{dna_length}")
-        print(f"Average score: {sum(score_list)/len(score_list):.3f}/{dna_length}\n\n\n")
+    #prints the status of the simulation to the console
+    print(f"Generation {generation}\n")
+    print(f"Target DNA:         {dna_target}")
+    print(f"Best organism DNA:  {best[0]}")
+    print(f"Random organism DNA:{ran[0]}")
+    print(f"Worst organism DNA: {ran[0]}")
+    print(f"Best, random, and worst scores: {best[1]}/{dna_length}, {ran[1]}/{dna_length}, {worst[1]}/{dna_length}")
+    print(f"Average score: {sum(score_list)/len(score_list):.3f}/{dna_length}\n\n\n")
 
-        #if the target DNA is reached, and the "stop if target reached" option is enabled, it exits the loop
-        if best[0] == dna_length and stop_if_target_reached:
-            break
+    #if the target DNA is reached, and the "stop if target reached" option is enabled, it exits the loop
+    if best[0] == dna_length and stop_if_target_reached:
+        break
 
-        #introduces natural selection into the process, which, with time, drives evolution
-        organisms = killOrganisms(organisms, kill_amount)
-        organisms = breedOrganisms(organisms, population, error_rate)
+    #introduces natural selection into the process, which, with time, drives evolution
+    organisms = killOrganisms(organisms, kill_amount)
+    organisms = breedOrganisms(organisms, population, error_rate)
 
-        #waits until next gen, as no delay would be too fast for a human to read the information presented
-        time.sleep(gen_delay)
+    #waits until next gen, as no delay would be too fast for a human to read the information presented
+    time.sleep(gen_delay)
 
 print("Target has been reached, simulation complete.")
 input('Press ENTER to quit. ')
